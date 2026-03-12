@@ -21,8 +21,6 @@ from inventory import (
     apply_bulk_discount,
     list_products,
 )
-import inventory
-
 
 # ============================================================
 # FIXTURE: Temporary inventory file (provided for you)
@@ -187,12 +185,11 @@ def test_add_product_with_empty_product_id():
     price = 5
     stock = 3
 
-    #Act
+    # Act & Assert
     with pytest.raises(ValueError) as err:
         add_product(product_id='', name=name,price=price, stock=stock)
     
-    # #Assert
-    # assert str(err.value) == "Product ID and name are required"
+    
 
 #10. Test Add Product with empty name
 def test_add_product_with_empty_name():
@@ -201,12 +198,10 @@ def test_add_product_with_empty_name():
     price = 5
     stock = 3
 
-    #Act
+    # Act & Assert
     with pytest.raises(ValueError) as err:
         add_product(product_id=product_id, name="",price=price, stock=stock)
     
-    # #Assert
-    # assert str(err.value) == "Product ID and name are required"
 
 #11. Test Add Product with negative price
 def test_add_product_with_negative_price():
@@ -216,12 +211,10 @@ def test_add_product_with_negative_price():
     price = -5
     stock = 3
 
-    #Act
+    #Act & Assert
     with pytest.raises(ValueError) as err:
         add_product(product_id, name, price, stock)
     
-    # #Assert
-    # assert str(err.value) == "Price must be positive"
 
 #12. Test Add Product with negative stock
 def test_add_product_with_negative_stock():
@@ -231,12 +224,10 @@ def test_add_product_with_negative_stock():
     price = 5
     stock = -3
 
-    #Act
+    #Act & Assert
     with pytest.raises(ValueError) as err:
         add_product(product_id, name, price, stock)
     
-    # #Assert
-    # assert str(err.value) == "Stock cannot be negative"
 
 #13. Test Add Product with duplicate product_id
 def test_add_product_with_duplicate_product_id():
@@ -246,13 +237,11 @@ def test_add_product_with_duplicate_product_id():
     price = 5
     stock = 3
 
-    # Act 
+    # Act & Assert
     add_product(product_id, name, price, stock) # Add first time
     with pytest.raises(ValueError) as err:
         add_product(product_id, name, price, stock)
     
-    # # Assert
-    # assert str(err.value) == f"Product '{product_id}' already exists"
 
 #14. Test Update Stock with negative stock
 def test_update_stock_with_negative_stock():
@@ -262,25 +251,21 @@ def test_update_stock_with_negative_stock():
     price = 5
     stock = 3
 
-    # Act
+    # Act & Assert
     add_product(product_id, name, price, stock)
     with pytest.raises(ValueError) as err:
         update_stock(product_id, -4) # decrease stock by 4
-    
-    # # Assert
-    # assert str(err.value) == "Stock cannot go below zero"
+
 
 #15. Test Update Stock with non existing product_id
 def test_update_stock_with_non_existing_product_id():
     # Arrange
     product_id = '1'
 
-    # Act
+    # Act & Assert
     with pytest.raises(ValueError) as err:
         update_stock(product_id, 3) 
     
-    # # Assert
-    # assert str(err.value) == f"Product '{product_id}' not found"
 
 #16. Test Calculate Total with negative quantity
 def test_calculate_total_with_negative_quantity():
@@ -290,7 +275,8 @@ def test_calculate_total_with_negative_quantity():
     price = 5
     stock = 3
     quantity = -2
-
+    
+    # Act & Assert
     add_product(product_id, name, price, stock)
     with pytest.raises(ValueError) as err:
         calculate_total(product_id, quantity)
@@ -388,7 +374,13 @@ def test_restock_alert_not_called(mock_alert):
 # You must achieve 90%+ coverage on inventory.py.
 # If lines are missed, add more tests above to cover them.
 # ============================================================
-
+"""
+Name           Stmts   Miss  Cover   Missing
+--------------------------------------------
+inventory.py      66      4    94%   92, 106, 108, 133
+--------------------------------------------
+TOTAL             66      4    94%
+"""
 
 # ============================================================
 # BONUS (5 extra marks)

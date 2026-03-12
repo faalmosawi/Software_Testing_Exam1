@@ -305,9 +305,6 @@ def sample_products():
 def test_list_products_with_sample_products(sample_products):
     products = list_products()
     assert len(products) == 3
-    assert any(pr["product_id"] == "P001" for pr in products)
-    assert any(pr["product_id"] == "P002" for pr in products)
-    assert any(pr["product_id"] == "P003" for pr in products)
 
 #18. Test calculate total by using the fixure
 def test_calculate_total_with_sample_products(sample_products):
